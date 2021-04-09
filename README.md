@@ -1,6 +1,6 @@
 # @rbxts/fabric
 
-`npm i @rbxts/fabric`
+`npm i @rbxts/fabric @rbxts/t`
 
 # Modifications
 
