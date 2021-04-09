@@ -17,11 +17,7 @@ interface TransmitterDefinition extends UnitDefinition<"Transmitter"> {
 	 * @param {unknown} transmitData - [optional] Data to give to the transmitEvent function
 	 * @client
 	 */
-	sendWithPredictiveLayer(
-		layerData: object,
-		transmitEvent: string,
-		transmitData?: unknown
-	): void;
+	sendWithPredictiveLayer(layerData: object, transmitEvent: string, transmitData?: unknown): void;
 
 	/** Broadcast the transmission to all subscribers
 	 * @param {string} transmitEvent - The base name of the server event function to call
@@ -48,15 +44,11 @@ declare global {
 
 //This has to be used because abstract class types cannot extend from each other
 /** The type that represents the `this` variable for a unit */
-export type ThisFabricUnit<T extends keyof FabricUnits> = FabricUnit<T> &
-	FabricUnits[T];
+export type ThisFabricUnit<T extends keyof FabricUnits> = FabricUnit<T> & FabricUnits[T];
 
 type LiteralUnion<T extends string> = T | (Pick<string, never> & { _?: never });
 type NonNullableObject<T extends {}> = {
 	[key in keyof T]: T[key] extends undefined ? never : T[key];
-};
-type PublicObject<T extends {}> = {
-	[key in keyof T]: T[key];
 };
 
 type DisconnectFunction = () => void;
@@ -74,25 +66,20 @@ interface BatchConstructors<T extends keyof FabricUnits> {
 	/** For batch updates on a custom event */
 	event: (
 		event: { Connect(...args: never[]): unknown },
-		callback: (units: ThisFabricUnit<T>[]) => void
+		callback: (units: ThisFabricUnit<T>[]) => void,
 	) => BatchListenerDefinition;
 
 	/** Interval updates */
-	interval: (
-		duration: number,
-		callback: (units: ThisFabricUnit<T>[]) => void
-	) => BatchListenerDefinition;
+	interval: (duration: number, callback: (units: ThisFabricUnit<T>[]) => void) => BatchListenerDefinition;
 
 	/** Interval, but evenly spread out updates over a period of time to reduce lag */
 	spreadInterval: (
 		duration: number,
-		callbackCreator: () => (unit: ThisFabricUnit<T>) => void
+		callbackCreator: () => (unit: ThisFabricUnit<T>) => void,
 	) => BatchListenerDefinition;
 
 	/** Interval but on a simple Heartbeat connection */
-	heartbeatInterval: (
-		callback: (units: ThisFabricUnit<T>[]) => void
-	) => BatchListenerDefinition;
+	heartbeatInterval: (callback: (units: ThisFabricUnit<T>[]) => void) => BatchListenerDefinition;
 }
 
 export interface UnitDefinition<T extends keyof FabricUnits> {
@@ -114,39 +101,24 @@ export interface UnitDefinition<T extends keyof FabricUnits> {
 	//todo if _addLayerData exists, make this accept that. Not sure how to do conditionals here
 	units?: { [key in keyof FabricUnits]?: FabricUnit<key>["data"] };
 	effects?:
-		| Map<
-				unknown,
-				undefined | ((unit: ThisFabricUnit<T>) => (() => void) | void)
-		  >
+		| Map<unknown, undefined | ((unit: ThisFabricUnit<T>) => (() => void) | void)>
 		| Array<undefined | ((unit: ThisFabricUnit<T>) => (() => void) | void)>;
 
-	shouldUpdate?: (
-		newData: FabricUnit<T>["data"],
-		lastData: FabricUnit<T>["data"]
-	) => boolean;
+	shouldUpdate?: (newData: FabricUnit<T>["data"], lastData: FabricUnit<T>["data"]) => boolean;
 
 	onLoaded?(this: ThisFabricUnit<T>, newData: FabricUnit<T>["data"]): void;
-	onUpdated?(
-		this: ThisFabricUnit<T>,
-		newData: FabricUnit<T>["data"],
-		lastData: FabricUnit<T>["data"]
-	): void;
+	onUpdated?(this: ThisFabricUnit<T>, newData: FabricUnit<T>["data"], lastData: FabricUnit<T>["data"]): void;
 	onInitialize?(this: ThisFabricUnit<T>): void;
 	onHotReloaded?(this: ThisFabricUnit<T>): void;
 	onDestroy?(this: ThisFabricUnit<T>): void;
 	render?(
 		this: ThisFabricUnit<T>,
-		createElement: (
-			instance: Instance,
-			props: unknown,
-			children: object
-		) => import("@rbxts/roact").Element
+		createElement: (instance: Instance, props: unknown, children: object) => import("@rbxts/roact").Element,
 	): void;
 	batch?: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
 }
 
-declare abstract class FabricUnit<TName extends keyof FabricUnits>
-	implements UnitDefinition<TName> {
+declare abstract class FabricUnit<TName extends keyof FabricUnits> implements UnitDefinition<TName> {
 	name: TName;
 
 	data?: Partial<FabricUnits[TName]["data"]>;
@@ -156,38 +128,25 @@ declare abstract class FabricUnit<TName extends keyof FabricUnits>
 
 	fire(eventName: LiteralUnion<"destroy">, ...args: never[]): void;
 	on(eventName: "destroy", callback: () => void): DisconnectFunction;
-	on(
-		eventName: "loaded",
-		callback: (newData: FabricUnits[TName]["data"]) => void
-	): DisconnectFunction;
+	on(eventName: "loaded", callback: (newData: FabricUnits[TName]["data"]) => void): DisconnectFunction;
 	on(
 		eventName: "updated",
-		callback: (
-			newData: FabricUnits[TName]["data"],
-			lastData: FabricUnits[TName]["data"]
-		) => void
+		callback: (newData: FabricUnits[TName]["data"], lastData: FabricUnits[TName]["data"]) => void,
 	): DisconnectFunction;
-	on(
-		eventName: string,
-		callback: (...args: unknown[]) => void
-	): DisconnectFunction;
+	on(eventName: string, callback: (...args: unknown[]) => void): DisconnectFunction;
 
 	ref: Required<FabricUnits[TName]>["ref"];
 
 	/** Purely returns a unit's data. If called from an effect or UnitDefinition:render(), it will bind to changes to that piece of data */
 	get(): FabricUnits[TName]["data"];
 	/** Gets a key from a unit's data. If called from an effect or UnitDefinition:render(), it will bind to changes to that piece of data */
-	get<TKey extends keyof Required<FabricUnit<TName>>["data"]>(
-		key: TKey
-	): Partial<Required<FabricUnit<TName>>["data"]>[TKey];
-	getUnit<TAdd extends keyof FabricUnits>(
-		unitResolvable: TAdd
-	): ThisFabricUnit<TAdd> | undefined;
+	get<TKey extends keyof Required<FabricUnits[TName]>["data"]>(
+		key: TKey,
+	): Required<FabricUnits[TName]>["data"][TKey] | undefined;
+	getUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
 	//todo figure out how to make this check the ref
 	/** CAUTION: This does not check the ref typings! */
-	getOrCreateUnit<TAdd extends keyof FabricUnits>(
-		unitResolvable: TAdd
-	): ThisFabricUnit<TAdd>;
+	getOrCreateUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
 
 	isDestroyed(): boolean;
 
@@ -209,34 +168,30 @@ declare abstract class FabricUnit<TName extends keyof FabricUnits>
 export declare class Fabric {
 	namespace: string;
 
-	None: Symbol;
+	None: never;
 
 	constructor(namespace: string);
 
-	registerUnit<T extends keyof FabricUnits>(
-		unitDefinition: UnitDefinition<T>
-	): UnitDefinition<T>;
+	registerUnit<T extends keyof FabricUnits>(unitDefinition: UnitDefinition<T>): UnitDefinition<T>;
 	registerUnitsIn(container: Instance): void;
 	getUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
-		ref: Required<FabricUnits[T]>["ref"]
+		ref: Required<FabricUnits[T]>["ref"],
 	): ThisFabricUnit<T> | undefined;
 	getOrCreateUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
-		ref: Required<FabricUnits[T]>["ref"]
+		ref: Required<FabricUnits[T]>["ref"],
 	): ThisFabricUnit<T>;
 	getLoadedUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
-		ref: Required<FabricUnits[T]>["ref"]
+		ref: Required<FabricUnits[T]>["ref"],
 	): Promise<ThisFabricUnit<T> | undefined>;
 	removeAllUnitsWithRef(ref: unknown): void;
 
 	fire(eventName: string, ...args: never[]): void;
 	on(
 		eventName: "unitHotReloaded" | "unitRegistered",
-		callback: <T extends keyof FabricUnits>(
-			unitDefinition: UnitDefinition<T>
-		) => void
+		callback: <T extends keyof FabricUnits>(unitDefinition: UnitDefinition<T>) => void,
 	): DisconnectFunction;
 
 	debug(...args: never[]): void;
@@ -244,9 +199,6 @@ export declare class Fabric {
 
 export function useTags(fabric: Fabric): void;
 export function useReplication(fabric: Fabric): void;
-export function useRoact(
-	fabric: Fabric,
-	roact: typeof import("@rbxts/roact")
-): void;
+export function useRoact(fabric: Fabric, roact: typeof import("@rbxts/roact")): void;
 export function useServiceUnits(fabric: Fabric): void;
 export function useBatching(fabric: Fabric): void;
