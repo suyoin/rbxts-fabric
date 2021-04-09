@@ -1,2 +1,1 @@
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-return TS.Promise
+return _G[script.Parent:WaitForChild("FabricLib")].Promise
