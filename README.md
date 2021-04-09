@@ -1,5 +1,6 @@
 # @rbxts/fabric
 
+roblox-ts typings for evaera's Fabric.
 `npm i @rbxts/fabric @rbxts/t`
 
 # Modifications
