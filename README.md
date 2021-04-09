@@ -38,7 +38,7 @@ const exampleUnitDefinition: ExampleUnitDefinition = {
 	foo() {
 		this.addLayer("exampleScope", { bar: true }); //here, `bar` must equal `true`.
 
-		//hypothetically, if `_addLayerData` was not specified, then `bar would be able to be `true` OR `false`, since those are of type `boolean`.
+		//hypothetically, if `_addLayerData` was not specified, then `bar` would be able to be `true` OR `false`, since those are of type `boolean`.
 	},
 };
 
