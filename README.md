@@ -26,8 +26,7 @@ declare global {
 interface ExampleUnitDefinition extends UnitDefinition<"ExampleUnit"> {
 	//these three fields are for typing only, and they have to be optional so that the below implementation does not have to define them
 	data?: { bar: boolean };
-	//if `_addLayerData` is not specified, `data` will be used.
-	_addLayerData?: { bar: true };
+	_addLayerData?: { bar: true }; //if `_addLayerData` is not specified, `data` will be used.
 	ref?: Player;
 
 	foo(this: ThisFabricUnit<"ExampleUnit">): void;
