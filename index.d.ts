@@ -112,7 +112,7 @@ export interface UnitDefinition<T extends keyof FabricUnits> {
 
 	defaults?: Map<string, unknown>;
 	//todo if _addLayerData exists, make this accept that. Not sure how to do conditionals here
-	units?: { [key in keyof FabricUnits]?: FabricUnit<T>["data"] };
+	units?: { [key in keyof FabricUnits]?: FabricUnit<key>["data"] };
 	effects?:
 		| Map<
 				unknown,
