@@ -1,9 +1,9 @@
 interface ReplicatedDefinition extends UnitDefinition<"Replicated"> {
-	ref: ThisFabricUnit<any>;
+	ref: ThisFabricUnit<keyof FabricUnits>;
 }
 
 interface TransmitterDefinition extends UnitDefinition<"Transmitter"> {
-	ref: ThisFabricUnit<any>;
+	ref: ThisFabricUnit<keyof FabricUnits>;
 	/**
 	 * @param {string} transmitEvent - The base name of the server event function to call
 	 * @param {unknown} transmitData - [optional] Data to give to the transmitEvent function
@@ -102,16 +102,16 @@ export interface UnitDefinition<T extends keyof FabricUnits> {
 	/** @hidden */
 	data?: unknown;
 	/** @hidden */
-	addLayerData?: unknown;
+	_addLayerData?: unknown;
 	/** @hidden */
-	ref: unknown;
+	ref?: unknown;
 
 	reducer?: (values: unknown[]) => FabricUnit<T>["data"];
 	schema?: (value: unknown) => boolean;
 	refCheck?: string[] | ((ref: unknown) => boolean);
 
 	defaults?: Map<string, unknown>;
-	//todo if addLayerData exists, make this accept that. Not sure how to do conditionals here
+	//todo if _addLayerData exists, make this accept that. Not sure how to do conditionals here
 	units?: { [key in keyof FabricUnits]?: FabricUnit<T>["data"] };
 	effects?:
 		| Map<
@@ -191,15 +191,14 @@ declare abstract class FabricUnit<TName extends keyof FabricUnits>
 
 	isDestroyed(): boolean;
 
-	//todo make addLayerData work when it is not an object
 	addLayer<
-		TLayerData extends Required<FabricUnits[TName]>["addLayerData"] extends {}
-			? Required<FabricUnits[TName]>["addLayerData"]
+		TLayerData extends Required<FabricUnits[TName]>["_addLayerData"] extends {}
+			? Required<FabricUnits[TName]>["_addLayerData"]
 			: Partial<FabricUnits[TName]["data"]>
 	>(scope: unknown, data: NonNullableObject<TLayerData>): void;
 	mergeBaseLayer<
-		TLayerData extends Required<FabricUnits[TName]>["addLayerData"] extends {}
-			? Required<FabricUnits[TName]>["addLayerData"]
+		TLayerData extends Required<FabricUnits[TName]>["_addLayerData"] extends {}
+			? Required<FabricUnits[TName]>["_addLayerData"]
 			: Partial<FabricUnits[TName]["data"]>
 	>(data: NonNullableObject<TLayerData>): void;
 	removeLayer(scope: unknown): void;
