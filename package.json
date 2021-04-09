@@ -2,19 +2,32 @@
 	"name": "@rbxts/fabric",
 	"version": "1.0.0",
 	"description": "",
-	"main": "out/init.lua",
+	"main": "src/FabricLib/init.lua",
+	"types": "index.d.ts",
+	"files": [
+		"index.d.ts",
+		"src/"
+	],
 	"scripts": {
 		"prepublishOnly": "rbxtsc"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"types": "out/index.d.ts",
-	"files": [
-		"out"
+	"keywords": [
+		"fabric",
+		"roblox",
+		"roblox-typescript",
+		"roblox-ts"
 	],
+	"author": "suyoin",
+	"license": "ISC",
 	"publishConfig": {
 		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/suyoin/rbxts-fabric"
+	},
+	"bugs": {
+		"url": "https://github.com/suyoin/rbxts-fabric/issues"
 	},
 	"devDependencies": {
 		"@rbxts/compiler-types": "^1.1.0-types.0",
