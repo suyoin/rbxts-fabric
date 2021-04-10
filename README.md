@@ -18,7 +18,9 @@ roblox-ts typings for evaera's Fabric.
 `ExampleUnit.ts`
 
 ```ts
-import { UnitDefinition, ThisFabricUnit } from "@rbxts/fabric";
+import { Fabric, UnitDefinition, ThisFabricUnit } from "@rbxts/fabric";
+
+const fabric = new Fabric("game");
 
 declare global {
 	interface FabricUnits {
@@ -45,7 +47,11 @@ const exampleUnitDefinition: ExampleUnitDefinition = {
 	},
 };
 
-export = exampleUnitDefinition;
+fabric.registerUnit(exampleUnitDefinition);
+
+const unit = fabric.getOrCreateUnitByRef("ExampleUnit", game); //attach an ExampleUnit to `game`
+unit.foo();
+print(unit.data!.bar); // > true
 ```
 
 # Changelog
