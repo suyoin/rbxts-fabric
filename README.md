@@ -4,6 +4,8 @@ roblox-ts typings for evaera's Fabric.
 
 `npm i @rbxts/fabric @rbxts/t`
 
+[![NPM](https://nodei.co/npm/@rbxts/fabric.png)](https://npmjs.org/package/@rbxts/fabric)
+
 # Modifications
 
     Some modifications I have made to the original package
