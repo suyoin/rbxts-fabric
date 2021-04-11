@@ -26,6 +26,10 @@ declare namespace FabricLib {
 	export type PickByRef<TRef> = {
 		[P in keyof FabricUnits]: Required<FabricUnits[P]>["ref"] extends TRef ? FabricUnits[P] : never;
 	}[keyof FabricUnits]["name"];
+
+	export type RoactUnitProps<TFabricUnitNames extends keyof FabricUnits> = {
+		[key in TFabricUnitNames]: Partial<Unit<key>["data"]>;
+	};
 }
 
 export = FabricLib;
