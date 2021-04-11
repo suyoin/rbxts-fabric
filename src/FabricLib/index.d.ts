@@ -5,9 +5,11 @@ import useRoact from "./Roact";
 import useBatching from "./Batching";
 import useServiceUnits from "./ServiceUnits";
 import Unit from "./Fabric/Unit";
+import { UnitDefinition } from "./Fabric/Types";
 
 import * as Symbol from "./Shared/Symbol";
 import * as Reducers from "./Fabric/Operators/Reducers";
+import * as SinglePromiseEvent from "./Batching/SinglePromiseEvent";
 
 declare global {
 	interface FabricUnits {}
@@ -30,6 +32,8 @@ declare namespace FabricLib {
 	export type RoactUnitProps<TFabricUnitNames extends keyof FabricUnits> = {
 		[key in TFabricUnitNames]: Partial<Unit<key>["data"]>;
 	};
+
+	export { UnitDefinition };
 }
 
 export = FabricLib;
