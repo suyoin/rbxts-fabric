@@ -1,1 +1,0 @@
-return _G[script.Parent:WaitForChild("FabricLib")].Promise

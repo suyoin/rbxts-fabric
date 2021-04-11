@@ -2,7 +2,7 @@ local RunService = game:GetService("RunService")
 
 local DEFAULT_NAMESPACE = "game"
 
-local Promise = require(script.Parent.Parent.Promise)
+local Promise = require(game:GetService("ReplicatedStorage").rbxts_included.Promise)
 
 local UnitCollection = require(script.UnitCollection)
 local Reactor = require(script.Reactor)
@@ -13,7 +13,7 @@ local Symbol = require(script.Parent.Shared.Symbol)
 local Fabric = {
 	reducers = require(script.Operators.Reducers);
 	comparators = require(script.Operators.Comparators);
-	t = require(script.Parent.Parent.t);
+	t = require(game:GetService("ReplicatedStorage").rbxts_included.t);
 	DEBUG = true;
 	Heartbeat = RunService.Heartbeat;
 	None = Symbol.named("None");
@@ -44,6 +44,7 @@ end
 
 --[=[
 	Registers a unit. This function should be called before attempting to get or create the unit.
+
 	@param unitDefinition UnitDefinition -- The definition of the unit
 	@return UnitDefinition -- The passed unit definition
 ]=]
@@ -59,6 +60,7 @@ end
 --[=[
 	Registers all units that are immmediate children of a container.
 	Skips any test scripts (i.e. name of form `*.spec`) in the container.
+
 	@param container Instance -- The container
 	@return nil
 ]=]
@@ -87,6 +89,7 @@ end
 --[=[
 	Returns the unit associated with a unit resolvable that is attached to a ref,
 	or nil if it doesn't exist.
+
 	@param unitResolvable UnitResolvable -- The unit to retrieve
 	@param ref Ref -- The ref to retrieve the unit from
 	@return Unit? -- The attached unit
@@ -98,6 +101,7 @@ end
 --[=[
 	Returns the unit associated with a unit resolvable that is attached to ref.
 	If it does not exist, then creates and attaches the unit to ref and returns it.
+
 	@param unitResolvable UnitResolvable -- The unit to retrieve
 	@param ref Ref -- The ref to retrieve the attached unit from
 	@return Unit -- The attached unit
@@ -141,6 +145,7 @@ end
 
 --[=[
 	Removes all units attached to the passed ref.
+
 	@param ref Ref -- The ref to remove all units from
 	@return nil
 ]=]
@@ -150,6 +155,7 @@ end
 
 --[=[
 	Fires a fabric event.
+
 	@param eventName string -- The event name to fire
 	@param ... any -- The arguments to fire the event with.
 	@return nil
@@ -173,6 +179,7 @@ end
 
 --[=[
 	Listens to a fabric event.
+
 	@param eventName string -- The event name to listen to
 	@param callback function -- The callback fired
 	@return nil
@@ -193,6 +200,7 @@ end
 
 --[=[
 	Logs a debug message. Set fabric.DEBUG = true to enable.
+
 	@param ... any -- The debug information to log
 	@return nil
 ]=]
