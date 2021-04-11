@@ -18,8 +18,6 @@ interface BatchConstructors<T extends keyof FabricUnits> {
 		duration: number,
 		callbackCreator: () => (unit: ThisFabricUnit<T>) => void,
 	) => BatchListenerDefinition;
-
-	heartbeatInterval: (callback: (units: ThisFabricUnit<T>[]) => void) => BatchListenerDefinition;
 }
 
 interface UnitDefinition<T extends keyof FabricUnits> {
