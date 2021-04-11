@@ -1,6 +1,7 @@
 import FabricLib from "../..";
 import { UnitDefinition } from "../../Fabric/Types";
 
+/** This unit should never be manually created. */
 interface TransmitterDefinition extends UnitDefinition<"Transmitter"> {
 	ref: FabricLib.ThisFabricUnit<keyof FabricUnits>;
 
@@ -15,6 +16,9 @@ interface TransmitterDefinition extends UnitDefinition<"Transmitter"> {
 
 declare global {
 	interface FabricUnits {
+		/** This unit should never be manually created.
+		 * @hidden
+		 */
 		Transmitter: TransmitterDefinition;
 	}
 }
