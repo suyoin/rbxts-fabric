@@ -11,6 +11,6 @@ declare global {
 		Replicated: ReplicatedDefinition;
 	}
 }
-declare function useReplication<T extends Fabric>(fabric: T): void;
 
+declare function useReplication<T extends Fabric>(fabric: T): void;
 export = useReplication;
