@@ -70,6 +70,17 @@ function ServerTransmitter.new(fabric)
 		end
 	end)
 
+	--quick and dirty fix for https://github.com/evaera/Fabric/issues/55
+	game:GetService("Players").PlayerRemoving:Connect(function(player)
+		for i, subunits in pairs(fabric._collection._refUnits) do
+			for subunitDefinition, subunitInstance in pairs(subunits) do
+				if subunitDefinition.name == "Transmitter" then
+					ServerTransmitter.Remote.unsubscribe(self, player, subunitInstance)
+				end
+			end
+		end
+	end)
+
 	return setmetatable(self, ServerTransmitter)
 end
 
