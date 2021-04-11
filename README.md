@@ -8,9 +8,8 @@ roblox-ts typings for evaera's Fabric.
 
 # Modifications
 
-    Some modifications I have made to the original package
+    Modifications I have made to the original package
 
-- Added a `heartbeatInterval` batching function
 - Quick fix to https://github.com/evaera/Fabric/issues/55
 
 # Usage
