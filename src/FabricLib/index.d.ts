@@ -3,6 +3,7 @@ import useTags from "./Tags";
 import useReplication from "./Replication";
 import useRoact from "./Roact";
 import useBatching from "./Batching";
+import useServiceUnits from "./ServiceUnits";
 import Unit from "./Fabric/Unit";
 
 declare global {
@@ -10,7 +11,7 @@ declare global {
 }
 
 declare namespace FabricLib {
-	export { Fabric, useTags, useReplication, useRoact, useBatching };
+	export { Fabric, useTags, useReplication, useRoact, useBatching, useServiceUnits };
 }
 
 declare namespace FabricLib {
