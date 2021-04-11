@@ -59,5 +59,5 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 		this: ThisFabricUnit<T>,
 		createElement: (instance: Instance, props: unknown, children: object) => object,
 	): void;
-	batch: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
+	batch?: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
 }
