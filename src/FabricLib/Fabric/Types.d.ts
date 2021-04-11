@@ -1,3 +1,4 @@
+import SinglePromiseEvent from "FabricLib/Batching/SinglePromiseEvent";
 import { ThisFabricUnit } from "..";
 import Unit from "./Unit";
 
