@@ -3,9 +3,8 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/FabricLib/init.lua",
-	"types": "index.d.ts",
+	"types": "src/FabricLib/index.d.ts",
 	"files": [
-		"index.d.ts",
 		"src/"
 	],
 	"scripts": {
