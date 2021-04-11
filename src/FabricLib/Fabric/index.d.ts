@@ -1,28 +1,29 @@
-import FabricLib from "..";
+import { LiteralUnion, ThisFabricUnit } from "..";
 import { UnitDefinition } from "./Types";
 
 declare class Fabric {
 	protected DEBUG: boolean;
 	readonly namespace: string;
-	protected readonly _listeners: {};
 
-	readonly serializer: 1;
-	constructor(namespace?: string | "game");
+	/** The `None` symbol is used when trying to make a field nil in `mergeBaseLayer`. */
+	readonly None: never;
+
+	constructor(namespace?: LiteralUnion<"game">);
 
 	registerUnit<T extends keyof FabricUnits>(unitDefinition: UnitDefinition<T>): UnitDefinition<T>;
 	registerUnitsIn(container: Instance): void;
 	getUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
 		ref: Required<FabricUnits[T]>["ref"],
-	): FabricLib.ThisFabricUnit<T> | undefined;
+	): ThisFabricUnit<T> | undefined;
 	getOrCreateUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
 		ref: Required<FabricUnits[T]>["ref"],
-	): FabricLib.ThisFabricUnit<T>;
+	): ThisFabricUnit<T>;
 	getLoadedUnitByRef<T extends keyof FabricUnits>(
 		unitResolvable: T,
 		ref: Required<FabricUnits[T]>["ref"],
-	): Promise<FabricLib.ThisFabricUnit<T> | undefined>;
+	): Promise<ThisFabricUnit<T> | undefined>;
 	removeAllUnitsWithRef(ref: unknown): void;
 
 	fire(eventName: string, ...args: never[]): void;
