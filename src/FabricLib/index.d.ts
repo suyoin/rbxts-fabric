@@ -6,6 +6,9 @@ import useBatching from "./Batching";
 import useServiceUnits from "./ServiceUnits";
 import Unit from "./Fabric/Unit";
 
+import * as Symbol from "./Shared/Symbol";
+import * as Reducers from "./Fabric/Operators/Reducers";
+
 declare global {
 	interface FabricUnits {}
 }
