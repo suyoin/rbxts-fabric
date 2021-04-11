@@ -1,9 +1,7 @@
-import FabricLib from "..";
+import { LiteralUnion, NonNullableObject, ThisFabricUnit } from "..";
 import Fabric from "../Fabric";
 
 declare abstract class Unit<T extends keyof FabricUnits> {
-	constructor(name: T, fabric: Fabric);
-
 	name: T;
 
 	data?: FabricUnits[T]["data"];
@@ -13,9 +11,7 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 
 	ref: Required<FabricUnits[T]>["ref"];
 
-	fire(eventName: FabricLib.LiteralUnion<"destroy">, ...args: unknown[]): void;
-
-	fire(eventName: FabricLib.LiteralUnion<"destroy">, ...args: never[]): void;
+	fire(eventName: LiteralUnion<"destroy">, ...args: unknown[]): void;
 	on(eventName: "destroy", callback: () => void): () => void;
 	on(eventName: "loaded", callback: (newData: FabricUnits[T]["data"]) => void): () => void;
 	on(
@@ -29,9 +25,9 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 		key: TKey,
 	): Required<FabricUnits[T]>["data"][TKey] | undefined;
 
-	getUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): FabricLib.ThisFabricUnit<TAdd> | undefined;
+	getUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
 
-	getOrCreateUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): FabricLib.ThisFabricUnit<TAdd>;
+	getOrCreateUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
 
 	isDestroyed(): boolean;
 
@@ -39,12 +35,12 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
 			: Partial<FabricUnits[T]["data"]>
-	>(scope: unknown, data: FabricLib.NonNullableObject<TLayerData>): void;
+	>(scope: unknown, data: NonNullableObject<TLayerData>): void;
 	mergeBaseLayer<
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
 			: Partial<FabricUnits[T]["data"]>
-	>(data: FabricLib.NonNullableObject<TLayerData>): void;
+	>(data: NonNullableObject<TLayerData>): void;
 	removeLayer(scope: unknown): void;
 
 	isLoaded(): boolean;
