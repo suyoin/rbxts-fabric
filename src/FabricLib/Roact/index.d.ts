@@ -1,6 +1,5 @@
 import Fabric from "../Fabric";
-type Roact = 2;
 
-declare type useRoact<T extends Fabric, U extends Roact> = (fabric: T, roact: U) => void;
+declare type useRoact = (fabric: Fabric, roact: typeof import("@rbxts/roact")) => void;
 
 export = useRoact;
