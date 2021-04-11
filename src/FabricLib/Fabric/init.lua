@@ -2,7 +2,7 @@ local RunService = game:GetService("RunService")
 
 local DEFAULT_NAMESPACE = "game"
 
-local Promise = require(game:GetService("ReplicatedStorage").rbxts_included.Promise)
+local Promise = require(game:GetService("ReplicatedStorage").rbxts_include.RuntimeLib).Promise
 
 local UnitCollection = require(script.UnitCollection)
 local Reactor = require(script.Reactor)
@@ -13,7 +13,7 @@ local Symbol = require(script.Parent.Shared.Symbol)
 local Fabric = {
 	reducers = require(script.Operators.Reducers);
 	comparators = require(script.Operators.Comparators);
-	t = require(game:GetService("ReplicatedStorage").rbxts_included.t);
+	t = require(game:GetService("ReplicatedStorage").rbxts_include.node_modules.t);
 	DEBUG = true;
 	Heartbeat = RunService.Heartbeat;
 	None = Symbol.named("None");
