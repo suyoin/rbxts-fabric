@@ -1,4 +1,3 @@
-  
 local CollectionService = game:GetService("CollectionService")
 local Workspace = game:GetService("Workspace")
 local FabricLib = require(script.Parent.Parent)

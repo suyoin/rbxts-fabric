@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export function last(values: unknown[]): any;
 export function first(values: unknown[]): any;
 export function truthy(values: unknown[]): any;
@@ -13,18 +15,11 @@ export function concatString(delimiter: string): (values: unknown[]) => any;
 export function priorityValue(reducer: () => any): (values: unknown[]) => any;
 export function structure(
 	reducers?: { [key in string | number]: (values: unknown[]) => unknown },
-	defaultReducer?: (values: unknown[]) => unknown
+	defaultReducer?: (values: unknown[]) => unknown,
 ): (values: unknown[]) => any;
-export function map(
-	reducer: (values: unknown[]) => unknown
-): (values: unknown[]) => any;
+export function map(reducer: (values: unknown[]) => unknown): (values: unknown[]) => any;
 export function exactly<T>(value: T): () => T;
 //Reducers.try can't be done because it is a keyword
-export function compose<T extends (values: unknown[]) => unknown>(
-	reducers: T[]
-): (values: unknown[]) => any;
+export function compose<T extends (values: unknown[]) => unknown>(reducers: T[]): (values: unknown[]) => any;
 
-export function thisOr(
-	reducer: (values: unknown[]) => unknown,
-	defaultValue: any
-): (values: unknown[]) => any;
+export function thisOr(reducer: (values: unknown[]) => unknown, defaultValue: any): (values: unknown[]) => any;

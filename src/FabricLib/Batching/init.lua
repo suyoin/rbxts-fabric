@@ -2,6 +2,7 @@ local RunService = game:GetService("RunService")
 
 --[[
 	Looks for a batch key inside of components
+
 	If is true or function, we maintain an array of all of the components
 	We add a function to fabric which lets you retrieve this array
 	If function, we call it on component registration to determine the events you want to do
@@ -145,27 +146,7 @@ local batchConstructors = {
 				becomeReady()
 			end,
 		}
-	end,
-
-	heartbeatInterval = function(callback)
-		local intervalEvent = SinglePromiseEvent.new(function(fire)
-			return function(_, _, onCancel)
-				local connection = RunService.Heartbeat:Connect(fire)
-
-				onCancel(function()
-					if connection then
-						connection:Disconnect()
-						connection = nil
-					end
-				end)
-			end
-		end)
-
-		return {
-			event = intervalEvent,
-			callback = callback
-		}
-	end,
+	end
 }
 
 return function (fabric)
