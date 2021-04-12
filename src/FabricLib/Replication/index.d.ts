@@ -24,7 +24,7 @@ declare global {
 
 		/** This unit should never be manually created.
 		 * @hidden
-		*/
+		 */
 		Transmitter: TransmitterDefinition;
 	}
 }
