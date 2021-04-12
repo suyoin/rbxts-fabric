@@ -29,7 +29,7 @@
 		"url": "https://github.com/suyoin/rbxts-fabric/issues"
 	},
 	"devDependencies": {
-		"@rbxts/compiler-types": "^1.1.0-types.0",
+		"@rbxts/compiler-types": "^1.1.1-types.3",
 		"@rbxts/types": "^1.0.470",
 		"@typescript-eslint/eslint-plugin": "^4.21.0",
 		"@typescript-eslint/parser": "^4.21.0",
