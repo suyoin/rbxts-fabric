@@ -4,7 +4,7 @@ import Unit from "./Unit";
 
 interface BatchListenerDefinition {
 	event: SinglePromiseEvent;
-	callback: () => void;
+	callback: Callback;
 }
 
 interface BatchConstructors<T extends keyof FabricUnits> {
