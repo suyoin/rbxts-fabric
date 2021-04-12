@@ -1,5 +1,5 @@
 import SinglePromiseEvent from "FabricLib/Batching/SinglePromiseEvent";
-import { PickByRef, ThisFabricUnit } from "..";
+import { PickByUnitRef, ThisFabricUnit } from "..";
 import Unit from "./Unit";
 
 interface BatchListenerDefinition {
@@ -39,7 +39,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	defaults?: { [index: string]: unknown };
 
 	units?: {
-		[key in PickByRef<ThisFabricUnit<T>>]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
+		[key in PickByUnitRef<T>]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
 			: Partial<FabricUnits[key]["data"]>;
 	};

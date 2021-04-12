@@ -25,8 +25,10 @@ declare namespace FabricLib {
 		[K in keyof T]: T[K] extends undefined ? never : T[K];
 	};
 	export type ThisFabricUnit<T extends keyof FabricUnits> = Unit<T> & FabricUnits[T];
-	export type PickByRef<TRef> = {
-		[P in keyof FabricUnits]: Required<FabricUnits[P]>["ref"] extends TRef ? FabricUnits[P] : never;
+	export type PickByUnitRef<TRef> = {
+		[P in keyof FabricUnits]: TRef extends Required<FabricUnits[P]>["ref"]["name"]
+			? FabricUnits[P]
+			: never;
 	}[keyof FabricUnits]["name"];
 
 	export type RoactUnitProps<TFabricUnitNames extends keyof FabricUnits> = {

@@ -1,4 +1,4 @@
-import { LiteralUnion, NonNullableObject, PickByRef, ThisFabricUnit } from "..";
+import { LiteralUnion, NonNullableObject, PickByUnitRef, ThisFabricUnit } from "..";
 import Fabric from "../Fabric";
 
 declare abstract class Unit<T extends keyof FabricUnits> {
@@ -25,8 +25,8 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 		key: TKey,
 	): Required<FabricUnits[T]>["data"][TKey] | undefined;
 
-	getUnit<TAdd extends PickByRef<ThisFabricUnit<T>>>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
-	getOrCreateUnit<TAdd extends PickByRef<ThisFabricUnit<T>>>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
+	getUnit<TAdd extends PickByUnitRef<T>>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
+	getOrCreateUnit<TAdd extends PickByUnitRef<T>>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
 
 	isDestroyed(): boolean;
 
