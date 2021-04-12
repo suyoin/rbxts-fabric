@@ -1,4 +1,4 @@
-local t = require(game:GetService("ReplicatedStorage").rbxts_include.node_modules.t);
+local t = require(script.Parent.Parent.Parent.t);
 
 local Types = {}
 
