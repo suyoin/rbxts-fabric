@@ -22,26 +22,6 @@ declare namespace FabricLib {
 	};
 	export type ThisFabricUnit<T extends keyof FabricUnits> = Unit<T> & FabricUnits[T];
 
-	export type UnitsThatExtendUnitRef<
-		TUnitName extends keyof FabricUnits,
-		TRef extends ThisFabricUnit<TUnitName>
-	> = keyof ExcludeMembers<
-		{
-			[P in keyof Omit<FabricUnits, TRef["name"]>]: Required<FabricUnits[P]>["ref"] extends ThisFabricUnit<
-				keyof FabricUnits
-			>
-				? FabricUnits[P]
-				: never;
-		},
-		never
-	>;
-
-	export type PickByUnitRef<TUnitName extends keyof FabricUnits, TRef extends ThisFabricUnit<TUnitName>> = keyof {
-		[P in UnitsThatExtendUnitRef<TUnitName, TRef>]: TRef extends Required<FabricUnits[P]>["ref"]
-			? FabricUnits[P]
-			: never;
-	};
-
 	export type PickByInstanceRef<TRef extends Instance> = {
 		[P in keyof FabricUnits]: TRef extends Required<FabricUnits[P]>["ref"] ? FabricUnits[P] : never;
 	}[keyof FabricUnits]["name"];

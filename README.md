@@ -56,17 +56,21 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.3
+
+    - Rollback fix for #3 (`getUnit` and `getOrCreateUnit`, as well as `UnitDefinition.units` ref validity)
+
 ### 1.1.2
 
-	- Fix PickByUnitRef
+    - Fix PickByUnitRef
 
 ### 1.1.1
 
     - `Unit.getUnit` and `Unit.getOrCreateUnit` now check for ref validity
     - `UnitDefinition.units` now checks for ref validity and uses the `_addLayerData` type if applicable
     - Members of `Reducers`, `Symbol`, and `SinglePromiseEvent` now show in intellisense
-	- `RoactUnitProps<TInstance, TFabricUnitNames>` exposed, can be used to intersect Roact props
-	- Unit data is no longer automatically made Partial<TData>
+    - `RoactUnitProps<TInstance, TFabricUnitNames>` exposed, can be used to intersect Roact props
+    - Unit data is no longer automatically made Partial<TData>
     - Reorganized types
 
 ### 1.0.0
