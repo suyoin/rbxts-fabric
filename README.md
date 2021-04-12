@@ -56,6 +56,10 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.2
+
+	- Fix PickByUnitRef
+
 ### 1.1.1
 
     - `Unit.getUnit` and `Unit.getOrCreateUnit` now check for ref validity

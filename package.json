@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/fabric",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "",
 	"main": "src/FabricLib/init.lua",
 	"types": "src/FabricLib/index.d.ts",
