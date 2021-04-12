@@ -41,7 +41,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	units?: {
 		[key in PickByUnitRef<T>]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
-			: Partial<FabricUnits[key]["data"]>;
+			: FabricUnits[key]["data"];
 	};
 
 	effects?:

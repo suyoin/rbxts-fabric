@@ -17,7 +17,7 @@ declare global {
 
 declare namespace FabricLib {
 	export type LiteralUnion<T extends string> = T | (Pick<string, never> & { _?: never });
-	export type NonNullableObject<T extends object> = {
+	export type NonNullableObject<T> = {
 		[K in keyof T]: T[K] extends undefined ? never : T[K];
 	};
 	export type ThisFabricUnit<T extends keyof FabricUnits> = Unit<T> & FabricUnits[T];
@@ -34,7 +34,7 @@ declare namespace FabricLib {
 	export type RoactUnitProps<TInstance extends Instance, TFabricUnitNames extends PickByInstanceRef<TInstance>> = {
 		[key in TFabricUnitNames]: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
-			: Partial<FabricUnits[key]["data"]>;
+			: FabricUnits[key]["data"];
 	};
 
 	export { Fabric, useTags, useReplication, useRoact, useBatching, useServiceUnits };

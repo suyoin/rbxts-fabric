@@ -33,12 +33,12 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	addLayer<
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
-			: Partial<FabricUnits[T]["data"]>
+			: FabricUnits[T]["data"]
 	>(scope: unknown, data: NonNullableObject<TLayerData>): void;
 	mergeBaseLayer<
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
-			: Partial<FabricUnits[T]["data"]>
+			: FabricUnits[T]["data"]
 	>(data: NonNullableObject<TLayerData>): void;
 	removeLayer(scope: unknown): void;
 
