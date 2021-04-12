@@ -39,7 +39,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	defaults?: { [index: string]: unknown };
 
 	units?: {
-		[key in PickByUnitRef<T>]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
+		[key in PickByUnitRef<T, ThisFabricUnit<T>>]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
 			: FabricUnits[key]["data"];
 	};

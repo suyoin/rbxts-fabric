@@ -25,8 +25,8 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 		key: TKey,
 	): Required<FabricUnits[T]>["data"][TKey] | undefined;
 
-	getUnit<TAdd extends PickByUnitRef<T>>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
-	getOrCreateUnit<TAdd extends PickByUnitRef<T>>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
+	getUnit<TAdd extends PickByUnitRef<T, ThisFabricUnit<T>>>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
+	getOrCreateUnit<TAdd extends PickByUnitRef<T, ThisFabricUnit<T>>>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
 
 	isDestroyed(): boolean;
 
