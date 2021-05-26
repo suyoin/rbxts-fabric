@@ -1,10 +1,16 @@
 import SinglePromiseEvent from "../../FabricLib/Batching/SinglePromiseEvent";
 import { ThisFabricUnit } from "..";
 import Unit from "./Unit";
+import Roact from "@rbxts/roact";
 
 interface BatchListenerDefinition {
 	event: SinglePromiseEvent;
 	callback: Callback;
+}
+
+type MapBindings<T> = { [K in keyof T]: T[K] | Roact.Binding<T[K]> };
+type HostComponentProps<T extends Roact.HostComponent> = Partial<WritableInstanceProperties<CreatableInstances[T]>> & {
+	[Roact.Ref]?: Roact.Ref<CreatableInstances[T]> | ((ref: CreatableInstances[T])=> void) 
 }
 
 interface BatchConstructors<T extends keyof FabricUnits> {
@@ -55,9 +61,13 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	onInitialize?(this: ThisFabricUnit<T>): void;
 	onHotReloaded?(this: ThisFabricUnit<T>): void;
 	onDestroy?(this: ThisFabricUnit<T>): void;
-	render?(
+	render?<E extends Roact.HostComponent>(
 		this: ThisFabricUnit<T>,
-		createElement: (instance: Instance, props: unknown, children: object) => object,
+		createElement: (instance: E, props?: MapBindings<HostComponentProps<E>>, children?: 
+		| { [childName: string]: Roact.Element }
+		| ReadonlyMap<string | number, Roact.Element>
+		| ReadonlyArray<Roact.Element>,
+			) => Roact.Element,
 	): void;
 	batch?: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
 }
