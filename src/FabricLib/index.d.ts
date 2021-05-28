@@ -20,6 +20,9 @@ declare namespace FabricLib {
 	export type NonNullableObject<T> = {
 		[K in keyof T]: T[K] extends undefined ? never : T[K];
 	};
+	export type If<C, T> = C extends true ? T : T | undefined;
+	export type PropCompatible<T, TProp> = TProp extends keyof T ? true : false;
+
 	export type ThisFabricUnit<T extends keyof FabricUnits> = Unit<T> & FabricUnits[T];
 
 	export type PickByInstanceRef<TRef extends Instance> = {
