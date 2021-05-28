@@ -1,6 +1,5 @@
 import SinglePromiseEvent from "../../FabricLib/Batching/SinglePromiseEvent";
 import { InferDataType, ThisFabricUnit } from "..";
-import Unit from "./Unit";
 import Roact from "@rbxts/roact";
 
 interface BatchListenerDefinition {
@@ -42,7 +41,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	schema?: (value: unknown) => boolean;
 	refCheck?: string[] | ((ref: unknown) => boolean);
 
-	defaults?: Required<FabricUnits[T]>["data"] extends {} ? Partial<FabricUnits[T]["data"]> : never;
+	defaults?: FabricUnits[T]["data"] extends {} | unknown ? Partial<FabricUnits[T]["data"]> : never;
 
 	units?: {
 		[key in keyof FabricUnits]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
