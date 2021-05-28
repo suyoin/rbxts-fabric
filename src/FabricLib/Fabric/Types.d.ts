@@ -10,8 +10,8 @@ interface BatchListenerDefinition {
 
 type MapBindings<T> = { [K in keyof T]: T[K] | Roact.Binding<T[K]> };
 type HostComponentProps<T extends Roact.HostComponent> = Partial<WritableInstanceProperties<CreatableInstances[T]>> & {
-	[Roact.Ref]?: Roact.Ref<CreatableInstances[T]> | ((ref: CreatableInstances[T])=> void) 
-}
+	[Roact.Ref]?: Roact.Ref<CreatableInstances[T]> | ((ref: CreatableInstances[T]) => void);
+};
 
 interface BatchConstructors<T extends keyof FabricUnits> {
 	event: (
@@ -63,11 +63,14 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	onDestroy?(this: ThisFabricUnit<T>): void;
 	render?<E extends Roact.HostComponent>(
 		this: ThisFabricUnit<T>,
-		createElement: (instance: E, props?: MapBindings<HostComponentProps<E>>, children?: 
-		| { [childName: string]: Roact.Element }
-		| ReadonlyMap<string | number, Roact.Element>
-		| ReadonlyArray<Roact.Element>,
-			) => Roact.Element,
+		createElement: (
+			instance: E,
+			props?: MapBindings<HostComponentProps<E>>,
+			children?:
+				| { [childName: string]: Roact.Element }
+				| ReadonlyMap<string | number, Roact.Element>
+				| ReadonlyArray<Roact.Element>,
+		) => Roact.Element,
 	): void;
 	batch?: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
 }
