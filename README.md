@@ -35,7 +35,7 @@ interface ExampleUnitDefinition extends UnitDefinition<"ExampleUnit"> {
 	ref?: Player;
 	
 	//alternatively, if you are using `defaults` for this unit, you could omit the `data` field above and just add `defaults: { bar: boolean }`,
-	//where you would also do `defaults: { bar: true }` in the below implementation of this interface
+	//in which you would also have to do `defaults: { bar: true }` in the below implementation of this interface
 
 	foo(this: ThisFabricUnit<"ExampleUnit">): void;
 }
