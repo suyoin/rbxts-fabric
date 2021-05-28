@@ -33,7 +33,7 @@ interface ExampleUnitDefinition extends UnitDefinition<"ExampleUnit"> {
 	data?: { bar: boolean };
 	_addLayerData?: { bar: true }; //if `_addLayerData` is not specified, `data` will be used.
 	ref?: Player;
-	
+
 	//alternatively, if you are using `defaults` for this unit, you could omit the `data` field above and just add `defaults: { bar: boolean }`,
 	//in which you would also have to do `defaults: { bar: true }` in the below implementation of this interface
 
@@ -59,17 +59,21 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.6
+
+    - Fix `data` object detection for `defaults`
+
 ### 1.1.5
 
-	- `Unit.get(key): T[key]` now returns T[key] if it is specified in the `defaults` field, and T[key] | undefined if not. However, if `defaults` is not typed, it will respect the type of the field specified in `data`
-	- `addLayer` and `mergeBaseLayer` now accept a Partial of the data typing
-	- `defaults` can only be typed if `data` is an object
+    - `Unit.get(key): T[key]` now returns T[key] if it is specified in the `defaults` field, and T[key] | undefined if not. However, if `defaults` is not typed, it will respect the type of the field specified in `data`
+    - `addLayer` and `mergeBaseLayer` now accept a Partial of the data typing
+    - `defaults` can only be typed if `data` is an object
 
 ### 1.1.4
 
     - Fixed defaults typing
-	- If `data` is not typed, `defaults` will be used
-	- Expose `DEBUG`
+    - If `data` is not typed, `defaults` will be used
+    - Expose `DEBUG`
 
 ### 1.1.3
 
