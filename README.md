@@ -29,10 +29,13 @@ declare global {
 
 //NOTE: you should never define the `name` field here. `name` should always be the same as the key in `FabricUnits`, which is done automatically for you.
 interface ExampleUnitDefinition extends UnitDefinition<"ExampleUnit"> {
-	//these three fields are for typing only, and they have to be optional so that the below implementation does not have to define them
+	//IMPORTANT: these three fields are for typing only, and they have to be optional so that the below implementation does not have to define them
 	data?: { bar: boolean };
 	_addLayerData?: { bar: true }; //if `_addLayerData` is not specified, `data` will be used.
 	ref?: Player;
+	
+	//alternatively, if you are using `defaults` for this unit, you could omit the `data` field above and just add `defaults: { bar: boolean }`,
+	//where you would also do `defaults: { bar: true }` in the below implementation of this interface
 
 	foo(this: ThisFabricUnit<"ExampleUnit">): void;
 }
