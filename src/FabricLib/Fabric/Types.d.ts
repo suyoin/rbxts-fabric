@@ -47,7 +47,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	units?: {
 		[key in keyof FabricUnits]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
-			: InferDataType<T>;
+			: InferDataType<key>;
 	};
 
 	effects?:
