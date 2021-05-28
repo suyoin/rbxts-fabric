@@ -2,7 +2,7 @@ import { LiteralUnion, ThisFabricUnit } from "..";
 import { UnitDefinition } from "./Types";
 
 declare class Fabric {
-	protected DEBUG: boolean;
+	public DEBUG: boolean;
 	readonly namespace: string;
 
 	/** The `None` symbol is used when trying to make a field nil in `mergeBaseLayer`. */
