@@ -1,4 +1,4 @@
-import { InferDataType, LiteralUnion, NonNullableObject, ThisFabricUnit } from "..";
+import { If, InferDataType, LiteralUnion, NonNullableObject, PropCompatible, ThisFabricUnit } from "..";
 import Fabric from "../Fabric";
 
 declare abstract class Unit<T extends keyof FabricUnits> {
@@ -18,7 +18,13 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	on(eventName: string, callback: (...args: unknown[]) => void): () => void;
 
 	get(): InferDataType<T>;
-	get<TKey extends keyof InferDataType<T>>(key: TKey): InferDataType<T>[TKey] | undefined;
+	get<TKey extends keyof InferDataType<T>>(
+		key: TKey,
+	): Required<FabricUnits[T]>["defaults"] extends {}
+		? If<PropCompatible<Required<FabricUnits[T]>["defaults"], TKey>, InferDataType<T>[TKey]>
+		: never;
+
+	//InferDataType<T>[TKey] | undefined;
 
 	getUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
 	getOrCreateUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
@@ -28,12 +34,12 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	addLayer<
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
-			: InferDataType<T>
+			: Partial<InferDataType<T>>
 	>(scope: unknown, data: NonNullableObject<TLayerData>): void;
 	mergeBaseLayer<
 		TLayerData extends Required<FabricUnits[T]>["_addLayerData"] extends {}
 			? Required<FabricUnits[T]>["_addLayerData"]
-			: InferDataType<T>
+			: Partial<InferDataType<T>>
 	>(data: NonNullableObject<TLayerData>): void;
 	removeLayer(scope: unknown): void;
 
