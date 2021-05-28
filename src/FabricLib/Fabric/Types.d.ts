@@ -1,5 +1,5 @@
 import SinglePromiseEvent from "../../FabricLib/Batching/SinglePromiseEvent";
-import { ThisFabricUnit } from "..";
+import { InferDataType, ThisFabricUnit } from "..";
 import Unit from "./Unit";
 import Roact from "@rbxts/roact";
 
@@ -38,7 +38,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	/** @hidden */
 	ref?: unknown;
 
-	reducer?: (values: unknown[]) => Unit<T>["data"];
+	reducer?: (values: unknown[]) => InferDataType<T>;
 	schema?: (value: unknown) => boolean;
 	refCheck?: string[] | ((ref: unknown) => boolean);
 
@@ -47,17 +47,17 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	units?: {
 		[key in keyof FabricUnits]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
-			: FabricUnits[key]["data"];
+			: InferDataType<T>;
 	};
 
 	effects?:
 		| Map<unknown, undefined | ((unit: ThisFabricUnit<T>) => (() => void) | void)>
 		| Array<(this: ThisFabricUnit<T>) => (() => void) | void>;
 
-	shouldUpdate?: (newData: Unit<T>["data"], lastData: Unit<T>["data"]) => boolean;
+	shouldUpdate?: (newData: InferDataType<T>, lastData: InferDataType<T>) => boolean;
 
-	onLoaded?(this: ThisFabricUnit<T>, newData: Unit<T>["data"]): void;
-	onUpdated?(this: ThisFabricUnit<T>, newData: Unit<T>["data"], lastData: Unit<T>["data"]): void;
+	onLoaded?(this: ThisFabricUnit<T>, newData: InferDataType<T>): void;
+	onUpdated?(this: ThisFabricUnit<T>, newData: InferDataType<T>, lastData: InferDataType<T>): void;
 	onInitialize?(this: ThisFabricUnit<T>): void;
 	onHotReloaded?(this: ThisFabricUnit<T>): void;
 	onDestroy?(this: ThisFabricUnit<T>): void;
