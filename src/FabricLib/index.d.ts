@@ -26,13 +26,17 @@ declare namespace FabricLib {
 		[P in keyof FabricUnits]: TRef extends Required<FabricUnits[P]>["ref"] ? FabricUnits[P] : never;
 	}[keyof FabricUnits]["name"];
 
+	export type InferDataType<T extends keyof FabricUnits> = Required<Unit<T>>["data"] extends {}
+		? Required<Unit<T>>["data"]
+		: Required<FabricUnits[T]>["defaults"];
+
 	export { UnitDefinition };
 
-	export type RoactUnitProps<TInstance extends Instance, TFabricUnitNames extends PickByInstanceRef<TInstance>> = {
+	/*export type RoactUnitProps<TInstance extends Instance, TFabricUnitNames extends PickByInstanceRef<TInstance>> = {
 		[key in TFabricUnitNames]: Required<FabricUnits[key]>["_addLayerData"] extends {}
 			? Required<FabricUnits[key]>["_addLayerData"]
 			: FabricUnits[key]["data"];
-	};
+	};*/
 
 	export { Fabric, useTags, useReplication, useRoact, useBatching, useServiceUnits };
 }
