@@ -42,7 +42,7 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	schema?: (value: unknown) => boolean;
 	refCheck?: string[] | ((ref: unknown) => boolean);
 
-	defaults?: Partial<FabricUnits[T]["data"]>;
+	defaults?: Required<FabricUnits[T]>["data"] extends {} ? Partial<FabricUnits[T]["data"]> : never;
 
 	units?: {
 		[key in keyof FabricUnits]?: Required<FabricUnits[key]>["_addLayerData"] extends {}
