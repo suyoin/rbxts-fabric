@@ -26,8 +26,8 @@ declare namespace FabricLib {
 		[P in keyof FabricUnits]: TRef extends Required<FabricUnits[P]>["ref"] ? FabricUnits[P] : never;
 	}[keyof FabricUnits]["name"];
 
-	export type InferDataType<T extends keyof FabricUnits> = Required<Unit<T>>["data"] extends {}
-		? Required<Unit<T>>["data"]
+	export type InferDataType<T extends keyof FabricUnits> = Required<FabricUnits[T]>["data"] extends {}
+		? Required<FabricUnits[T]>["data"]
 		: Required<FabricUnits[T]>["defaults"];
 
 	export { UnitDefinition };
