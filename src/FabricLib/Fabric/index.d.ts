@@ -1,5 +1,12 @@
 import { LiteralUnion, ThisFabricUnit } from "..";
 import { UnitDefinition } from "./Types";
+import Unit from "./Unit";
+
+declare class UnitCollection {
+	_unitsByName: { [key in keyof FabricUnits]: FabricUnits[key] };
+	//this is only exposed to fix Fabric#55 and using Unit<keyof FabricUnits> results in a circular reference, so that is why these are <"Transmitter">
+	_refUnits: Map<unknown, Map<UnitDefinition<"Transmitter">, Unit<"Transmitter">>>;
+}
 
 declare class Fabric {
 	public DEBUG: boolean;
@@ -9,6 +16,9 @@ declare class Fabric {
 	readonly None: never;
 
 	constructor(namespace?: LiteralUnion<"game">);
+
+	/** @hidden */
+	_collection: UnitCollection;
 
 	registerUnit<T extends keyof FabricUnits>(unitDefinition: UnitDefinition<T>): UnitDefinition<T>;
 	registerUnitsIn(container: Instance): void;

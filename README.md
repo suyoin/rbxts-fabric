@@ -6,12 +6,6 @@ roblox-ts typings for evaera's Fabric.
 
 [![NPM](https://nodei.co/npm/@rbxts/fabric.png)](https://npmjs.org/package/@rbxts/fabric)
 
-# Modifications
-
-    Modifications I have made to the original package
-
-- Quick fix to https://github.com/evaera/Fabric/issues/55
-
 # Usage
 
 `ExampleUnit.ts`
