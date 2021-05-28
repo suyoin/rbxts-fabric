@@ -1,6 +1,10 @@
 import { InferDataType, LiteralUnion, NonNullableObject, ThisFabricUnit } from "..";
 import Fabric from "../Fabric";
 
+type If<C, T> = C extends true ? T : unknown
+type PropCompatible<T, TProp> = TProp extends keyof T ? true : false
+
+
 declare abstract class Unit<T extends keyof FabricUnits> {
 	name: T;
 
@@ -18,7 +22,7 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	on(eventName: string, callback: (...args: unknown[]) => void): () => void;
 
 	get(): InferDataType<T>;
-	get<TKey extends keyof InferDataType<T>>(key: TKey): InferDataType<T>[TKey] | undefined;
+	get<TKey extends keyof InferDataType<T>>(key: TKey): If<PropCompatible<Required<FabricUnits[T]["defaults"]>, TKey>, Required<FabricUnits[T]["defaults"][TKey]>>
 
 	getUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd> | undefined;
 	getOrCreateUnit<TAdd extends keyof FabricUnits>(unitResolvable: TAdd): ThisFabricUnit<TAdd>;
