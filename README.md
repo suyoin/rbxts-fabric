@@ -59,6 +59,12 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.5
+
+	- `Unit.get(key): T[key]` now returns T[key] if it is specified in the `defaults` field, and T[key] | undefined if not. However, if `defaults` is not typed, it will respect the type of the field specified in `data`
+	- `addLayer` and `mergeBaseLayer` now accept a Partial of the data typing
+	- `defaults` can only be typed if `data` is an object
+
 ### 1.1.4
 
     - Fixed defaults typing
