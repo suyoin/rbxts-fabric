@@ -56,6 +56,12 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.4
+
+    - Fixed defaults typing
+	- If `data` is not typed, `defaults` will be used
+	- Expose `DEBUG`
+
 ### 1.1.3
 
     - Rollback fix for #3 (`getUnit` and `getOrCreateUnit`, as well as `UnitDefinition.units` ref validity)
