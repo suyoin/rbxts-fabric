@@ -53,6 +53,10 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.7 (Unreleased)
+
+    - Better Roact support
+
 ### 1.1.6
 
     - Fix `data` object detection for `defaults`

@@ -26,6 +26,15 @@ interface BatchConstructors<T extends keyof FabricUnits> {
 	) => BatchListenerDefinition;
 }
 
+type RoactUnitProps = {
+	[unitDefinition in UnitDefinition<keyof FabricUnits> as symbol]: InferDataType<unitDefinition["name"]>;
+};
+
+type RoactComponentChildren =
+	| { [childName: string]: Roact.Element }
+	| ReadonlyMap<string | number, Roact.Element>
+	| ReadonlyArray<Roact.Element>;
+
 interface UnitDefinition<T extends keyof FabricUnits> {
 	name: T;
 	tag?: string;
@@ -60,16 +69,26 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 	onInitialize?(this: ThisFabricUnit<T>): void;
 	onHotReloaded?(this: ThisFabricUnit<T>): void;
 	onDestroy?(this: ThisFabricUnit<T>): void;
-	render?<E extends Roact.HostComponent>(
-		this: ThisFabricUnit<T>,
-		createElement: (
-			instance: E,
-			props?: MapBindings<HostComponentProps<E>>,
-			children?:
-				| { [childName: string]: Roact.Element }
-				| ReadonlyMap<string | number, Roact.Element>
-				| ReadonlyArray<Roact.Element>,
-		) => Roact.Element,
-	): void;
+	render?: Required<FabricUnits[T]>["ref"] extends Instance
+		? (
+				this: ThisFabricUnit<T>,
+				createElement: (<P>(
+					instance: Roact.FunctionComponent<P>,
+					props?: MapBindings<P> & RoactUnitProps,
+					children?: RoactComponentChildren,
+				) => Roact.Element) &
+					(<P>(
+						instance: Roact.ComponentConstructor<P>,
+						props?: MapBindings<P> & RoactUnitProps,
+						children?: RoactComponentChildren,
+					) => Roact.Element) &
+					(<C extends Roact.HostComponent>(
+						instance: C,
+						props?: MapBindings<HostComponentProps<C>> & RoactUnitProps,
+						children?: RoactComponentChildren,
+					) => Roact.Element),
+		  ) => Roact.Element
+		: never;
+
 	batch?: true | ((on: BatchConstructors<T>) => BatchListenerDefinition[]);
 }
