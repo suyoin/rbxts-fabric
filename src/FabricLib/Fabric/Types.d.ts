@@ -18,7 +18,7 @@ interface BatchConstructors<T extends keyof FabricUnits> {
 		callback: (units: ThisFabricUnit<T>[]) => void,
 	) => BatchListenerDefinition;
 
-	interval: (duration: number, callback: (units: ThisFabricUnit<T>[]) => void) => BatchListenerDefinition;
+	interval: (duration: number, callback: (unit: ThisFabricUnit<T>) => void) => BatchListenerDefinition;
 
 	spreadInterval: (
 		duration: number,
