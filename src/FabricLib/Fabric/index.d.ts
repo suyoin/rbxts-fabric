@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LiteralUnion, ThisFabricUnit } from "..";
 import { UnitDefinition } from "./Types";
 import Unit from "./Unit";
 
 declare class UnitCollection {
+	/** @hidden */
 	_unitsByName: { [key in keyof FabricUnits]: FabricUnits[key] };
 	//this is only exposed to fix Fabric#55 and using Unit<keyof FabricUnits> results in a circular reference, so that is why these are <"Transmitter">
+	/** @hidden */
 	_refUnits: Map<unknown, Map<UnitDefinition<"Transmitter">, Unit<"Transmitter">>>;
+
+	resolve<TUnitName extends string>(
+		unitResolvable:
+			| TUnitName
+			| ({ name: TUnitName } & (TUnitName extends keyof FabricUnits ? UnitDefinition<TUnitName> : object)),
+	): TUnitName extends keyof FabricUnits ? UnitDefinition<TUnitName> : object | undefined;
 }
 
 declare class Fabric {
@@ -17,7 +26,6 @@ declare class Fabric {
 
 	constructor(namespace?: LiteralUnion<"game">);
 
-	/** @hidden */
 	_collection: UnitCollection;
 
 	registerUnit<T extends keyof FabricUnits>(unitDefinition: UnitDefinition<T>): UnitDefinition<T>;
