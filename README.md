@@ -53,14 +53,10 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
-### 1.1.8
+### 1.1.7
 
 	- Expose `UnitCollection:resolve(unitResolvable)` to be able to check if a unit has been registered
     - (slightly) better Roact support
-
-### 1.1.7
-
-	- Removed a package modification
 
 ### 1.1.6
 
