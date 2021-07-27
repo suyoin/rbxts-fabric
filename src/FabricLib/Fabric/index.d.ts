@@ -10,11 +10,12 @@ declare class UnitCollection {
 	/** @hidden */
 	_refUnits: Map<unknown, Map<UnitDefinition<"Transmitter">, Unit<"Transmitter">>>;
 
+	resolve(unitResolvable: string): unitResolvable is keyof FabricUnits;
 	resolve<TUnitName extends string>(
-		unitResolvable:
-			| TUnitName
-			| ({ name: TUnitName } & (TUnitName extends keyof FabricUnits ? UnitDefinition<TUnitName> : object)),
-	): TUnitName extends keyof FabricUnits ? UnitDefinition<TUnitName> : object | undefined;
+		unitResolvable: { name: TUnitName } & (TUnitName extends keyof FabricUnits
+			? UnitDefinition<TUnitName>
+			: object),
+	): unitResolvable is TUnitName extends keyof FabricUnits ? UnitDefinition<TUnitName> : { name: TUnitName };
 }
 
 declare class Fabric {
