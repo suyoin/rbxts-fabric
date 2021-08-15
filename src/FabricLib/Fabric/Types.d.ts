@@ -62,10 +62,10 @@ interface UnitDefinition<T extends keyof FabricUnits> {
 		| Map<unknown, undefined | ((unit: ThisFabricUnit<T>) => (() => void) | void)>
 		| Array<(this: ThisFabricUnit<T>) => (() => void) | void>;
 
-	shouldUpdate?: (newData: InferDataType<T>, lastData: InferDataType<T>) => boolean;
+	shouldUpdate?: (newData: InferDataType<T>, lastData: InferDataType<T> | undefined) => boolean;
 
 	onLoaded?(this: ThisFabricUnit<T>, newData: InferDataType<T>): void;
-	onUpdated?(this: ThisFabricUnit<T>, newData: InferDataType<T>, lastData: InferDataType<T>): void;
+	onUpdated?(this: ThisFabricUnit<T>, newData: InferDataType<T>, lastData: InferDataType<T> | undefined): void;
 	onInitialize?(this: ThisFabricUnit<T>): void;
 	onHotReloaded?(this: ThisFabricUnit<T>): void;
 	onDestroy?(this: ThisFabricUnit<T>): void;

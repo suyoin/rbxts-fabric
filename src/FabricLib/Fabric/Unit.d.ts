@@ -14,7 +14,10 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	fire(eventName: LiteralUnion<"destroy">, ...args: unknown[]): void;
 	on(eventName: "destroy", callback: () => void): () => void;
 	on(eventName: "loaded", callback: (newData: InferDataType<T>) => void): () => void;
-	on(eventName: "updated", callback: (newData: InferDataType<T>, lastData: InferDataType<T>) => void): () => void;
+	on(
+		eventName: "updated",
+		callback: (newData: InferDataType<T>, lastData: InferDataType<T> | undefined) => void,
+	): () => void;
 	on(eventName: string, callback: (...args: unknown[]) => void): () => void;
 
 	get(): InferDataType<T>;
