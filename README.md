@@ -53,18 +53,22 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.10
+
+	- `lastData` parameter in `updated` lifecycles can be undefined
+
 ### 1.1.9
 
-	- Improved `UnitCollection:resolve()` typings
+    - Improved `UnitCollection:resolve()` typings
 
 ### 1.1.8
 
-	- Expose `UnitCollection:resolve(unitResolvable)` to be able to check if a unit has been registered
+    - Expose `UnitCollection:resolve(unitResolvable)` to be able to check if a unit has been registered
     - (slightly) better Roact support
 
 ### 1.1.7
 
-	- Removed a package modification
+    - Removed a package modification
 
 ### 1.1.6
 
