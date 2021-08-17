@@ -1,4 +1,4 @@
-import Unit from "FabricLib/Fabric/Unit";
+import Unit from "../../FabricLib/Fabric/Unit";
 
 declare class ServerTransmitter {
 	static Remote: {
