@@ -53,6 +53,11 @@ print(unit.data!.bar); // > true
 
 # Changelog
 
+### 1.1.11
+
+	- Fixed imports on `Symbol.d.ts` and `ServerTransmitter.d.ts`
+	- Add a hidden `_layers` typing to Units
+
 ### 1.1.10
 
 	- `lastData` parameter in `updated` lifecycles can be undefined
