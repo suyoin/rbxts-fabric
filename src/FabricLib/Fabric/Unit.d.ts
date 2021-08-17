@@ -7,6 +7,15 @@ declare abstract class Unit<T extends keyof FabricUnits> {
 	data?: InferDataType<T>;
 	lastData?: Unit<T>["data"];
 
+	/** @hidden */
+	_layers: Map<
+		unknown,
+		Required<FabricUnits[T]>["_addLayerData"] extends {}
+			? //include Partial<InferDataType<T>> because the layer could be a remote (replicated) layer
+			  Required<FabricUnits[T]>["_addLayerData"] | Partial<InferDataType<T>>
+			: Partial<InferDataType<T>>
+	>;
+
 	fabric: Fabric;
 
 	ref: Required<FabricUnits[T]>["ref"];
